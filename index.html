@@ -11,24 +11,13 @@
     --brand-mid: #1D9E75;
     --brand-border: #9FE1CB;
   }
-  .theme-navy {
-    --brand: #223670;
-    --brand-light: #EAF0FB;
-    --brand-mid: #3A5BA0;
-    --brand-border: #A0B4E0;
-  }
-  .theme-purple {
-    --brand: #6B3FA0;
-    --brand-light: #F2EAFB;
-    --brand-mid: #9B6FD0;
-    --brand-border: #C8A8F0;
-  }
+  .theme-navy { --brand: #223670; --brand-light: #EAF0FB; --brand-mid: #3A5BA0; --brand-border: #A0B4E0; }
+  .theme-purple { --brand: #6B3FA0; --brand-light: #F2EAFB; --brand-mid: #9B6FD0; --brand-border: #C8A8F0; }
   :root, .theme-green { --accent: #D0A900; --gray: #f5f5f5; --border: #e0e0e0; --text: #1a1a1a; --text-sub: #666; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', sans-serif; background: #f9f9f7; color: var(--text); font-size: 15px; }
   .wrap { max-width: 680px; margin: 0 auto; padding: 0 16px 60px; }
 
-  /* ヘッダー */
   .app-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 8px; }
   .header-icons { display: flex; gap: 8px; }
   .icon-btn { background: white; border: 1px solid var(--border); border-radius: 10px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.15s; color: var(--text-sub); }
@@ -37,7 +26,6 @@
   .logo-icon { width: 32px; height: 32px; background: var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
   .logo-name { font-size: 15px; font-weight: bold; color: var(--brand); }
 
-  /* メインヘッダー */
   .main-head { text-align: center; padding: 16px 16px 20px; }
   h1 { font-size: 22px; font-weight: bold; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
   .tagline { font-size: 14px; color: var(--text-sub); }
@@ -88,7 +76,6 @@
   .pw-btn { background: var(--brand); color: white; border: none; border-radius: 8px; padding: 10px 18px; font-size: 14px; font-weight: bold; cursor: pointer; }
   .pw-error { color: #e53935; font-size: 13px; margin-top: 8px; }
 
-  /* モーダル共通 */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: flex-start; justify-content: center; padding: 20px 16px; overflow-y: auto; }
   .modal-overlay.open { display: flex; }
   .modal { background: white; border-radius: 18px; width: 100%; max-width: 520px; padding: 28px 24px; position: relative; margin: auto; }
@@ -96,27 +83,42 @@
   .modal-close { position: absolute; top: 16px; right: 18px; background: var(--gray); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 18px; cursor: pointer; color: var(--text-sub); display: flex; align-items: center; justify-content: center; }
   .modal-close:hover { background: var(--border); }
 
-  /* 設定モーダル */
   .setting-label { font-size: 12px; font-weight: bold; color: var(--text-sub); margin: 14px 0 6px; letter-spacing: 0.04em; }
   .setting-input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px; color: var(--text); background: #fafafa; outline: none; }
   .setting-input:focus { border-color: var(--brand); background: white; }
-  .color-options { display: flex; gap: 10px; margin-top: 6px; }
-  .color-chip { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all 0.15s; display: flex; align-items: center; justify-content: center; }
-  .color-chip.selected { border-color: #333; }
-  .color-chip span { color: white; font-size: 14px; }
-  .color-label { font-size: 11px; color: var(--text-sub); text-align: center; margin-top: 4px; }
-  .color-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-  .save-btn { width: 100%; background: var(--brand); color: white; border: none; border-radius: 10px; padding: 13px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 20px; }
-  .save-btn:hover { opacity: 0.85; }
-  .demo-clear-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
-  .ghost-btn { background: none; border: none; font-size: 12px; color: #bbb; cursor: pointer; text-decoration: underline; padding: 4px 8px; }
-  .ghost-btn:hover { color: #999; }
 
-  /* 使い方モーダル */
+  .color-options { display: flex; gap: 10px; margin-top: 6px; }
+  .color-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .color-chip { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: all 0.15s; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
+  .color-chip.selected { border-color: #333; transform: scale(1.1); }
+  .color-label { font-size: 11px; color: var(--text-sub); }
+
+  .save-btn { width: 100%; background: var(--brand); color: white; border: none; border-radius: 10px; padding: 13px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: opacity 0.15s; }
+  .save-btn:hover { opacity: 0.85; }
+
+  /* フィードバックメッセージ */
+  .feedback-msg { border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: bold; text-align: center; margin-top: 12px; display: none; }
+  .feedback-msg.success { background: #E8F7F2; color: #0B7B5C; border: 1px solid #9FE1CB; }
+  .feedback-msg.error { background: #FFEBEE; color: #c62828; border: 1px solid #ef9a9a; }
+  .feedback-msg.info { background: #FFF8E1; color: #795548; border: 1px solid #FFD54F; }
+
+  /* デモ・クリアエリア */
+  .demo-clear-row { display: flex; gap: 10px; justify-content: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .ghost-btn { background: white; border: 1px solid var(--border); border-radius: 8px; font-size: 12px; color: #999; cursor: pointer; padding: 7px 14px; transition: all 0.15s; }
+  .ghost-btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-light); }
+  .ghost-btn.danger:hover { border-color: #e53935; color: #e53935; background: #FFEBEE; }
+
+  /* 確認パネル（クリア用） */
+  .confirm-panel { display: none; background: #FFEBEE; border: 1px solid #ef9a9a; border-radius: 10px; padding: 14px 16px; margin-top: 12px; text-align: center; }
+  .confirm-panel p { font-size: 13px; color: #c62828; margin-bottom: 12px; }
+  .confirm-btns { display: flex; gap: 8px; justify-content: center; }
+  .confirm-yes { background: #e53935; color: white; border: none; border-radius: 8px; padding: 8px 20px; font-size: 13px; font-weight: bold; cursor: pointer; }
+  .confirm-no { background: white; color: #666; border: 1px solid var(--border); border-radius: 8px; padding: 8px 20px; font-size: 13px; cursor: pointer; }
+
   .howto-section { margin-bottom: 20px; }
   .howto-title { font-size: 14px; font-weight: bold; color: var(--brand); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid var(--brand-light); }
   .howto-list { list-style: none; padding: 0; }
-  .howto-list li { font-size: 14px; color: var(--text); line-height: 1.7; padding: 6px 0 6px 22px; position: relative; border-bottom: 1px dashed #f0f0f0; }
+  .howto-list li { font-size: 14px; color: var(--text); line-height: 1.7; padding: 6px 0 6px 24px; position: relative; border-bottom: 1px dashed #f0f0f0; }
   .howto-list li:last-child { border-bottom: none; }
   .howto-list li::before { content: '✅'; position: absolute; left: 0; font-size: 13px; }
   .howto-list li.note::before { content: '💡'; }
@@ -192,15 +194,15 @@
     <div class="setting-label">🎨 テーマカラー</div>
     <div class="color-options">
       <div class="color-item">
-        <div class="color-chip selected" style="background:#0B7B5C;" id="chip-green" onclick="selectColor('green')"><span id="check-green">✓</span></div>
+        <div class="color-chip" style="background:#0B7B5C;" id="chip-green" onclick="selectColor('green')"></div>
         <div class="color-label">グリーン</div>
       </div>
       <div class="color-item">
-        <div class="color-chip" style="background:#223670;" id="chip-navy" onclick="selectColor('navy')"><span id="check-navy" style="display:none">✓</span></div>
+        <div class="color-chip" style="background:#223670;" id="chip-navy" onclick="selectColor('navy')"></div>
         <div class="color-label">ネイビー</div>
       </div>
       <div class="color-item">
-        <div class="color-chip" style="background:#6B3FA0;" id="chip-purple" onclick="selectColor('purple')"><span id="check-purple" style="display:none">✓</span></div>
+        <div class="color-chip" style="background:#6B3FA0;" id="chip-purple" onclick="selectColor('purple')"></div>
         <div class="color-label">パープル</div>
       </div>
     </div>
@@ -222,10 +224,21 @@
 
     <button class="save-btn" onclick="saveSettings()">💾 保存する</button>
 
+    <div class="feedback-msg" id="settingsFeedback"></div>
+
     <div class="demo-clear-row">
-      <button class="ghost-btn" onclick="loadDemo()">デモデータを入れる</button>
-      <button class="ghost-btn" onclick="clearSettings()">設定をクリアする</button>
+      <button class="ghost-btn" onclick="loadDemo()">📋 デモデータを入れる</button>
+      <button class="ghost-btn danger" onclick="showClearConfirm()">🗑 設定をクリアする</button>
     </div>
+
+    <div class="confirm-panel" id="clearConfirmPanel">
+      <p>⚠️ 入力した設定をすべて削除します。よろしいですか？</p>
+      <div class="confirm-btns">
+        <button class="confirm-yes" onclick="execClear()">削除する</button>
+        <button class="confirm-no" onclick="hideClearConfirm()">キャンセル</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -241,14 +254,14 @@
       <ul class="howto-list">
         <li>薬局スタッフが毎日悩む「SNSに何を投稿すればいいか」を解決します</li>
         <li>AIが6つのSNSプラットフォームに合わせた投稿文を一括で作成します</li>
-        <li>薬剤師・事務員問わず、IT が苦手なスタッフでも3ステップで使えます</li>
+        <li>薬剤師・事務員問わず、ITが苦手なスタッフでも3ステップで使えます</li>
       </ul>
     </div>
 
     <div class="howto-section">
       <div class="howto-title">📋 基本の使い方（3ステップ）</div>
       <ul class="howto-list">
-        <li><span class="howto-step">STEP1</span>薬局名を入力してください（設定で保存しておくと便利です）</li>
+        <li><span class="howto-step">STEP1</span>薬局名を入力してください（設定で保存しておくと自動入力されます）</li>
         <li><span class="howto-step">STEP2</span>今日投稿したいテーマを8種類から選ぶだけでOKです</li>
         <li><span class="howto-step">STEP3</span>一言メモは任意です。「今日は雨です」などを入れると文章に反映されます</li>
         <li>「一括生成」ボタンを押すと、6つのSNS用の投稿文が同時に完成します</li>
@@ -259,7 +272,7 @@
     <div class="howto-section">
       <div class="howto-title">⚙️ 設定について</div>
       <ul class="howto-list">
-        <li>右上の歯車マークから薬局の基本情報を登録しておけます</li>
+        <li>右上の歯車マークから薬局の基本情報を登録できます</li>
         <li>登録した店舗名・URL・連絡先はAIが投稿文に自然に組み込みます</li>
         <li>テーマカラーをグリーン・ネイビー・パープルから選べます</li>
         <li class="note">設定はこのデバイスに保存されます。他の端末では再設定が必要です</li>
@@ -314,16 +327,28 @@ let currentResult = {};
 let selectedTheme = '今日の健康豆知識';
 let selectedColor = 'green';
 
+function showFeedback(id, msg, type, duration) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = 'feedback-msg ' + type;
+  el.style.display = 'block';
+  if (duration !== 0) {
+    setTimeout(() => { el.style.display = 'none'; }, duration || 2500);
+  }
+}
+
 function applyColor(color) {
   document.body.className = color === 'green' ? '' : 'theme-' + color;
   selectedColor = color;
-  ['green','navy','purple'].forEach(c => {
-    document.getElementById('chip-' + c).classList.toggle('selected', c === color);
-    document.getElementById('check-' + c).style.display = c === color ? 'block' : 'none';
+  ['green', 'navy', 'purple'].forEach(c => {
+    const chip = document.getElementById('chip-' + c);
+    if (chip) chip.classList.toggle('selected', c === color);
   });
 }
 
-function selectColor(color) { applyColor(color); }
+function selectColor(color) {
+  applyColor(color);
+}
 
 function selectTheme(btn) {
   document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('selected'));
@@ -333,7 +358,6 @@ function selectTheme(btn) {
 
 function getCount() { return parseInt(localStorage.getItem(STORAGE_KEY) || '0'); }
 function isUnlocked() { return localStorage.getItem(UNLOCK_KEY) === '1'; }
-
 function getSettings() {
   try { return JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}'); } catch(e) { return {}; }
 }
@@ -366,12 +390,7 @@ async function generate() {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        yakkyokuName: name,
-        theme: selectedTheme,
-        memo: document.getElementById('memo').value.trim(),
-        settings: settings
-      }),
+      body: JSON.stringify({ yakkyokuName: name, theme: selectedTheme, memo: document.getElementById('memo').value.trim(), settings }),
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error);
@@ -447,7 +466,6 @@ function showStripeWall() {
 function checkPassword() {
   if (document.getElementById('pwInput').value.trim() === PASSWORD) {
     localStorage.setItem(UNLOCK_KEY, '1');
-    alert('✅ パスワードが確認されました！引き続きご利用いただけます。');
     document.getElementById('resultArea').innerHTML = '';
     updateFreeNotice();
   } else {
@@ -462,6 +480,8 @@ function openSettings() {
   document.getElementById('s_url').value = s.url || '';
   document.getElementById('s_tel').value = s.tel || '';
   document.getElementById('s_email').value = s.email || '';
+  document.getElementById('settingsFeedback').style.display = 'none';
+  document.getElementById('clearConfirmPanel').style.display = 'none';
   applyColor(localStorage.getItem(COLOR_KEY) || 'green');
   document.getElementById('settingsModal').classList.add('open');
 }
@@ -478,8 +498,7 @@ function saveSettings() {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
   localStorage.setItem(COLOR_KEY, selectedColor);
   if (s.store) document.getElementById('yakkyokuName').value = s.store;
-  closeSettings();
-  alert('✅ 設定を保存しました！');
+  showFeedback('settingsFeedback', '✅ 設定を保存しました！', 'success', 2500);
 }
 
 function loadDemo() {
@@ -488,10 +507,20 @@ function loadDemo() {
   document.getElementById('s_url').value = 'https://example-pharmacy.com';
   document.getElementById('s_tel').value = '03-1234-5678';
   document.getElementById('s_email').value = 'info@example-pharmacy.com';
+  document.getElementById('clearConfirmPanel').style.display = 'none';
+  showFeedback('settingsFeedback', '📋 デモデータを入れました。確認後「保存する」を押してください。', 'info', 3000);
 }
 
-function clearSettings() {
-  if (!confirm('設定をクリアしてもよいですか？')) return;
+function showClearConfirm() {
+  document.getElementById('settingsFeedback').style.display = 'none';
+  document.getElementById('clearConfirmPanel').style.display = 'block';
+}
+
+function hideClearConfirm() {
+  document.getElementById('clearConfirmPanel').style.display = 'none';
+}
+
+function execClear() {
   localStorage.removeItem(SETTINGS_KEY);
   localStorage.removeItem(COLOR_KEY);
   document.getElementById('s_company').value = '';
@@ -500,6 +529,8 @@ function clearSettings() {
   document.getElementById('s_tel').value = '';
   document.getElementById('s_email').value = '';
   applyColor('green');
+  hideClearConfirm();
+  showFeedback('settingsFeedback', '🗑 設定をクリアしました。', 'error', 2500);
 }
 
 function openHowto() { document.getElementById('howtoModal').classList.add('open'); }
