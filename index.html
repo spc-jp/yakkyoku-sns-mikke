@@ -17,46 +17,36 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', sans-serif; background: #f9f9f7; color: var(--text); font-size: 15px; }
-
   .wrap { max-width: 680px; margin: 0 auto; padding: 0 16px 60px; }
-
   header { text-align: center; padding: 32px 16px 24px; }
   .logo-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--brand-light); border: 1px solid #9FE1CB; border-radius: 24px; padding: 6px 18px; margin-bottom: 14px; }
   .logo-icon { width: 22px; height: 22px; background: var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; }
   .logo-text { font-size: 13px; font-weight: bold; color: #0B7B5C; }
   h1 { font-size: 22px; font-weight: bold; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
   .tagline { font-size: 14px; color: var(--text-sub); }
-
   .free-notice { background: #FFF8E1; border: 1px solid #FFD54F; border-radius: 10px; padding: 10px 16px; margin-bottom: 20px; font-size: 13px; color: #795548; text-align: center; }
   .free-notice strong { color: #E65100; }
-
   .card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
   .card-label { font-size: 12px; font-weight: bold; color: var(--text-sub); margin-bottom: 12px; letter-spacing: 0.05em; }
-
   input[type="text"] { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 15px; color: var(--text); background: #fafafa; outline: none; transition: border-color 0.2s; }
   input[type="text"]:focus { border-color: var(--brand); background: white; }
-
   .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .theme-btn { background: var(--gray); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px; color: var(--text); cursor: pointer; text-align: left; transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
   .theme-btn:hover { border-color: var(--brand-mid); background: var(--brand-light); }
   .theme-btn.selected { border-color: var(--brand); background: var(--brand-light); color: #0B7B5C; font-weight: bold; }
   .theme-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s; }
   .theme-btn.selected .theme-dot { background: var(--brand); }
-
   .generate-btn { width: 100%; background: var(--brand); color: white; border: none; border-radius: 12px; padding: 16px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 8px; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
   .generate-btn:hover { opacity: 0.85; }
   .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
   .loading { text-align: center; padding: 32px; color: var(--text-sub); font-size: 14px; }
   .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--brand); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
   .output-wrap { margin-top: 24px; }
   .output-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
   .tab { padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; border: 1.5px solid var(--border); background: white; color: var(--text-sub); transition: all 0.15s; }
   .tab.active { background: var(--brand); border-color: var(--brand); color: white; }
   .tab:hover:not(.active) { border-color: var(--brand-mid); color: var(--brand); }
-
   .output-card { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
   .output-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border); background: #fafafa; }
   .platform-label { font-size: 14px; font-weight: bold; color: var(--text); display: flex; align-items: center; gap: 8px; }
@@ -65,7 +55,6 @@
   .copy-btn:hover { background: #9FE1CB; }
   .output-body { padding: 16px; font-size: 14px; color: var(--text); line-height: 1.8; white-space: pre-wrap; min-height: 100px; }
   .char-count { padding: 6px 16px 12px; font-size: 12px; color: var(--text-sub); }
-
   .stripe-wall { background: white; border: 2px solid var(--accent); border-radius: 14px; padding: 28px 20px; text-align: center; margin-top: 24px; }
   .stripe-wall h2 { font-size: 18px; margin-bottom: 10px; }
   .stripe-wall p { font-size: 14px; color: var(--text-sub); margin-bottom: 20px; line-height: 1.7; }
@@ -74,7 +63,6 @@
   .pw-area input { border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; width: 220px; margin-right: 8px; }
   .pw-btn { background: var(--brand); color: white; border: none; border-radius: 8px; padding: 10px 18px; font-size: 14px; font-weight: bold; cursor: pointer; }
   .pw-error { color: #e53935; font-size: 13px; margin-top: 8px; }
-
   footer { text-align: center; padding: 24px; font-size: 12px; color: #aaa; }
 </style>
 </head>
@@ -132,7 +120,7 @@
 
 <script>
 const WORKER_URL = 'https://yakkyoku-sns-mikke.yymmatsu.workers.dev';
-const STRIPE_URL = 'https://buy.stripe.com/XXXXXXXXXXXXXXXX'; // StripeのURLに変更
+const STRIPE_URL = 'https://buy.stripe.com/XXXXXXXXXXXXXXXX';
 const PASSWORD = 'yakkyoku2980';
 const FREE_LIMIT = 3;
 const STORAGE_KEY = 'yakkyoku_sns_count';
@@ -194,14 +182,16 @@ async function generate() {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ yakkyokuName: name, theme: selectedTheme, memo: document.getElementById('memo').value.trim() }),
+      body: JSON.stringify({
+        yakkyokuName: name,
+        theme: selectedTheme,
+        memo: document.getElementById('memo').value.trim()
+      }),
     });
     const data = await res.json();
-
     if (data.error) throw new Error(data.error);
 
     currentResult = data;
-
     if (!isUnlocked()) {
       localStorage.setItem(STORAGE_KEY, getCount() + 1);
     }
