@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薬局SNSみっけ｜SNS投稿を一発で6つ作る</title>
+<style>
+  :root {
+    --brand: #0B7B5C;
+    --brand-light: #E8F7F2;
+    --brand-mid: #1D9E75;
+    --accent: #D0A900;
+    --gray: #f5f5f5;
+    --border: #e0e0e0;
+    --text: #1a1a1a;
+    --text-sub: #666;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', sans-serif; background: #f9f9f7; color: var(--text); font-size: 15px; }
+
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 16px 60px; }
+
+  header { text-align: center; padding: 32px 16px 24px; }
+  .logo-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--brand-light); border: 1px solid #9FE1CB; border-radius: 24px; padding: 6px 18px; margin-bottom: 14px; }
+  .logo-icon { width: 22px; height: 22px; background: var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; }
+  .logo-text { font-size: 13px; font-weight: bold; color: #0B7B5C; }
+  h1 { font-size: 22px; font-weight: bold; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .tagline { font-size: 14px; color: var(--text-sub); }
+
+  .free-notice { background: #FFF8E1; border: 1px solid #FFD54F; border-radius: 10px; padding: 10px 16px; margin-bottom: 20px; font-size: 13px; color: #795548; text-align: center; }
+  .free-notice strong { color: #E65100; }
+
+  .card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+  .card-label { font-size: 12px; font-weight: bold; color: var(--text-sub); margin-bottom: 12px; letter-spacing: 0.05em; }
+
+  input[type="text"] { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 15px; color: var(--text); background: #fafafa; outline: none; transition: border-color 0.2s; }
+  input[type="text"]:focus { border-color: var(--brand); background: white; }
+
+  .theme-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .theme-btn { background: var(--gray); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px; color: var(--text); cursor: pointer; text-align: left; transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
+  .theme-btn:hover { border-color: var(--brand-mid); background: var(--brand-light); }
+  .theme-btn.selected { border-color: var(--brand); background: var(--brand-light); color: #0B7B5C; font-weight: bold; }
+  .theme-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; transition: background 0.15s; }
+  .theme-btn.selected .theme-dot { background: var(--brand); }
+
+  .generate-btn { width: 100%; background: var(--brand); color: white; border: none; border-radius: 12px; padding: 16px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 8px; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .generate-btn:hover { opacity: 0.85; }
+  .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .loading { text-align: center; padding: 32px; color: var(--text-sub); font-size: 14px; }
+  .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--brand); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .output-wrap { margin-top: 24px; }
+  .output-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tab { padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; border: 1.5px solid var(--border); background: white; color: var(--text-sub); transition: all 0.15s; }
+  .tab.active { background: var(--brand); border-color: var(--brand); color: white; }
+  .tab:hover:not(.active) { border-color: var(--brand-mid); color: var(--brand); }
+
+  .output-card { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .output-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border); background: #fafafa; }
+  .platform-label { font-size: 14px; font-weight: bold; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .platform-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .copy-btn { font-size: 13px; color: var(--brand); background: var(--brand-light); border: 1px solid #9FE1CB; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-weight: bold; transition: background 0.15s; }
+  .copy-btn:hover { background: #9FE1CB; }
+  .output-body { padding: 16px; font-size: 14px; color: var(--text); line-height: 1.8; white-space: pre-wrap; min-height: 100px; }
+  .char-count { padding: 6px 16px 12px; font-size: 12px; color: var(--text-sub); }
+
+  .stripe-wall { background: white; border: 2px solid var(--accent); border-radius: 14px; padding: 28px 20px; text-align: center; margin-top: 24px; }
+  .stripe-wall h2 { font-size: 18px; margin-bottom: 10px; }
+  .stripe-wall p { font-size: 14px; color: var(--text-sub); margin-bottom: 20px; line-height: 1.7; }
+  .stripe-btn { display: inline-block; background: var(--accent); color: white; border: none; border-radius: 10px; padding: 14px 32px; font-size: 15px; font-weight: bold; cursor: pointer; text-decoration: none; margin-bottom: 16px; }
+  .pw-area { margin-top: 16px; }
+  .pw-area input { border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 15px; width: 220px; margin-right: 8px; }
+  .pw-btn { background: var(--brand); color: white; border: none; border-radius: 8px; padding: 10px 18px; font-size: 14px; font-weight: bold; cursor: pointer; }
+  .pw-error { color: #e53935; font-size: 13px; margin-top: 8px; }
+
+  footer { text-align: center; padding: 24px; font-size: 12px; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo-badge">
+      <div class="logo-icon">💊</div>
+      <span class="logo-text">薬局SNSみっけ</span>
+    </div>
+    <h1>SNS投稿を、一発で6つ作る</h1>
+    <p class="tagline">薬局スタッフの「何を書けばいい？」を解決するAIアシスタント</p>
+  </header>
+
+  <div class="free-notice" id="freeNotice">
+    🎁 今なら<strong>3回まで無料</strong>でお試しいただけます
+  </div>
+
+  <div class="card">
+    <div class="card-label">STEP 1　薬局名を入力してください</div>
+    <input type="text" id="yakkyokuName" placeholder="例：さくら薬局、みどり調剤薬局" />
+  </div>
+
+  <div class="card">
+    <div class="card-label">STEP 2　今日のテーマを選んでください</div>
+    <div class="theme-grid">
+      <button class="theme-btn selected" onclick="selectTheme(this)"><span class="theme-dot"></span>今日の健康豆知識</button>
+      <button class="theme-btn" onclick="selectTheme(this)"><span class="theme-dot"></span>季節の注意点</button>
+      <button class="theme-btn" onclick="selectTheme(this)"><span class="theme-dot"></span>OTC薬の紹介・使い方</button>
+      <button class="theme-btn" onclick="selectTheme(this)"><span class="theme-dot"></span>薬の飲み合わせ注意</button>
+      <button class="theme-btn" onclick="selectTheme(this)"><span class="theme-dot"></span>患者さんへのご挨拶</button>
+      <button class="theme-btn" onclick="selectTheme(this)"><span class="theme-dot"></span>スタッフ紹介・日常</button>
+      <button class="theme-btn" onclick="selectTheme(this)"><span class="theme-dot"></span>休業・営業時間案内</button>
+      <button class="theme-btn" onclick="selectTheme(this)"><span class="theme-dot"></span>ワクチン・予防接種</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">STEP 3　一言メモ（任意）</div>
+    <input type="text" id="memo" placeholder="例：今週は花粉がひどいです、新しいスタッフが入りました" />
+  </div>
+
+  <button class="generate-btn" id="generateBtn" onclick="generate()">
+    ⚡ 6プラットフォームの投稿文を一括生成する
+  </button>
+
+  <div id="resultArea"></div>
+
+</div>
+
+<footer>
+  © Smile Plus Consulting｜薬局SNSみっけ
+</footer>
+
+<script>
+const WORKER_URL = 'https://yakkyoku-sns-api.yymmatsu.workers.dev';
+const STRIPE_URL = 'https://buy.stripe.com/XXXXXXXXXXXXXXXX'; // StripeのURLに変更
+const PASSWORD = 'yakkyoku2980';
+const FREE_LIMIT = 3;
+const STORAGE_KEY = 'yakkyoku_sns_count';
+const UNLOCK_KEY = 'yakkyoku_sns_unlocked';
+
+const platforms = [
+  { key: 'facebook',  label: 'Facebook投稿',     dot: '#1877F2' },
+  { key: 'fbcomment', label: 'FBコメント（URL）', dot: '#1877F2' },
+  { key: 'x',         label: 'X（旧Twitter）',    dot: '#000000' },
+  { key: 'threads',   label: 'Threads',           dot: '#101010' },
+  { key: 'instagram', label: 'Instagram',         dot: '#E1306C' },
+  { key: 'line',      label: 'LINE配信',          dot: '#06C755' },
+];
+
+let currentTab = 'facebook';
+let currentResult = {};
+let selectedTheme = '今日の健康豆知識';
+
+function selectTheme(btn) {
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedTheme = btn.textContent.trim();
+}
+
+function getCount() { return parseInt(localStorage.getItem(STORAGE_KEY) || '0'); }
+function isUnlocked() { return localStorage.getItem(UNLOCK_KEY) === '1'; }
+
+function updateFreeNotice() {
+  const notice = document.getElementById('freeNotice');
+  if (isUnlocked()) {
+    notice.style.display = 'none';
+    return;
+  }
+  const remaining = FREE_LIMIT - getCount();
+  if (remaining <= 0) {
+    notice.innerHTML = '⚠️ 無料回数を使い切りました。続けてご利用の場合はご登録をお願いします。';
+    notice.style.background = '#FFF3E0';
+    notice.style.borderColor = '#FF9800';
+  } else {
+    notice.innerHTML = `🎁 今なら<strong>あと${remaining}回</strong>無料でお試しいただけます`;
+  }
+}
+
+async function generate() {
+  const name = document.getElementById('yakkyokuName').value.trim();
+  if (!name) { alert('薬局名を入力してください'); return; }
+
+  if (!isUnlocked() && getCount() >= FREE_LIMIT) {
+    showStripeWall();
+    return;
+  }
+
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = true;
+  btn.textContent = '生成中...';
+  document.getElementById('resultArea').innerHTML = '<div class="loading"><div class="spinner"></div>AIが6つのプラットフォーム向けに投稿文を作成しています...</div>';
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ yakkyokuName: name, theme: selectedTheme, memo: document.getElementById('memo').value.trim() }),
+    });
+    const data = await res.json();
+
+    if (data.error) throw new Error(data.error);
+
+    currentResult = data;
+
+    if (!isUnlocked()) {
+      localStorage.setItem(STORAGE_KEY, getCount() + 1);
+    }
+    updateFreeNotice();
+    showResult();
+  } catch (e) {
+    document.getElementById('resultArea').innerHTML = `<div class="loading" style="color:#e53935;">エラーが発生しました：${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ 6プラットフォームの投稿文を一括生成する';
+  }
+}
+
+function showResult() {
+  currentTab = 'facebook';
+  let tabsHTML = platforms.map(p =>
+    `<div class="tab${p.key === currentTab ? ' active' : ''}" onclick="switchTab('${p.key}', this)">${p.label}</div>`
+  ).join('');
+
+  document.getElementById('resultArea').innerHTML = `
+    <div class="output-wrap">
+      <div class="output-tabs" id="tabRow">${tabsHTML}</div>
+      <div class="output-card">
+        <div class="output-header">
+          <div class="platform-label">
+            <div class="platform-dot" id="pDot" style="background:${platforms[0].dot}"></div>
+            <span id="pName">${platforms[0].label}</span>
+          </div>
+          <div class="copy-btn" onclick="copyText()">コピー</div>
+        </div>
+        <div class="output-body" id="pBody">${currentResult.facebook || ''}</div>
+        <div class="char-count" id="pChars">文字数：${(currentResult.facebook || '').length}字</div>
+      </div>
+    </div>
+  `;
+}
+
+function switchTab(key, el) {
+  currentTab = key;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const p = platforms.find(x => x.key === key);
+  document.getElementById('pDot').style.background = p.dot;
+  document.getElementById('pName').textContent = p.label;
+  const text = currentResult[key] || '';
+  document.getElementById('pBody').textContent = text;
+  document.getElementById('pChars').textContent = `文字数：${text.length}字`;
+}
+
+function copyText() {
+  const text = document.getElementById('pBody').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'コピーしました！';
+    setTimeout(() => btn.textContent = 'コピー', 1800);
+  });
+}
+
+function showStripeWall() {
+  document.getElementById('resultArea').innerHTML = `
+    <div class="stripe-wall">
+      <h2>🌿 無料トライアルが終了しました</h2>
+      <p>引き続きご利用いただくには、月額 ¥2,980（税込）のプランへのご登録をお願いします。<br>登録後にパスワードをご案内します。</p>
+      <a class="stripe-btn" href="${STRIPE_URL}" target="_blank">✨ 月額 ¥2,980 で始める</a>
+      <div class="pw-area">
+        <p style="font-size:13px; color:#999; margin-bottom:10px;">登録済みの方はパスワードを入力してください</p>
+        <input type="text" id="pwInput" placeholder="パスワード" />
+        <button class="pw-btn" onclick="checkPassword()">解除する</button>
+        <div class="pw-error" id="pwError"></div>
+      </div>
+    </div>
+  `;
+}
+
+function checkPassword() {
+  const val = document.getElementById('pwInput').value.trim();
+  if (val === PASSWORD) {
+    localStorage.setItem(UNLOCK_KEY, '1');
+    document.getElementById('pwError').textContent = '';
+    alert('✅ パスワードが確認されました！引き続きご利用いただけます。');
+    document.getElementById('resultArea').innerHTML = '';
+    updateFreeNotice();
+  } else {
+    document.getElementById('pwError').textContent = 'パスワードが正しくありません';
+  }
+}
+
+updateFreeNotice();
+</script>
+</body>
+</html>
