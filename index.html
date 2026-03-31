@@ -45,7 +45,10 @@
   .header-icons { display: flex; gap: 8px; }
   .icon-btn { background: white; border: 1px solid var(--border); border-radius: 10px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; transition: all 0.15s; color: var(--text-sub); }
   .icon-btn:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-light); }
-  .header-logo { display: flex; align-items: center; gap: 8px; }
+  
+  /* ロゴ部分（クリック可能に） */
+  .header-logo { display: flex; align-items: center; gap: 8px; cursor: pointer; transition: opacity 0.2s; }
+  .header-logo:hover { opacity: 0.8; }
   .logo-icon { width: 32px; height: 32px; background: var(--brand); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
   .logo-name { font-size: 15px; font-weight: bold; color: var(--brand); }
 
@@ -72,9 +75,22 @@
   .generate-btn:hover { opacity: 0.85; }
   .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  .loading { text-align: center; padding: 32px; color: var(--text-sub); font-size: 14px; }
-  .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--brand); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading { text-align: center; padding: 32px 16px; color: var(--text-sub); font-size: 14px; font-weight: bold; }
+  
+  /* 薬のSVGアニメーション用CSS */
+  .pills-loader { display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .pill-anim { width: 36px; height: 36px; animation: pillJump 0.8s infinite alternate ease-in-out; }
+  
+  /* それぞれの薬にポップなカラーを設定 */
+  .pill-anim:nth-child(1) { animation-delay: 0s;   stroke: #FF6B6B; fill: #FFE3E3; } /* ピンク系カプセル */
+  .pill-anim:nth-child(2) { animation-delay: 0.2s; stroke: #4DABF7; fill: #D0EBFF; } /* ブルー系丸薬 */
+  .pill-anim:nth-child(3) { animation-delay: 0.4s; stroke: #FF922B; fill: #FFE8CC; } /* オレンジ系薬瓶 */
+  .pill-anim:nth-child(4) { animation-delay: 0.6s; stroke: #51CF66; fill: #D3F9D8; } /* グリーン系六角薬 */
+  
+  @keyframes pillJump {
+    0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.6; }
+    100% { transform: translateY(-12px) rotate(15deg) scale(1.1); opacity: 1; }
+  }
 
   .output-wrap { margin-top: 24px; }
   .output-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -155,7 +171,8 @@
 <div class="wrap">
 
   <div class="app-header">
-    <div class="header-logo">
+    <!-- クリックでトップへスクロールする処理を追加 -->
+    <div class="header-logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="ページトップへ">
       <div class="logo-icon">💊</div>
       <span class="logo-name">薬局SNSみっけ</span>
     </div>
@@ -407,7 +424,32 @@ async function generate() {
   const btn = document.getElementById('generateBtn');
   btn.disabled = true;
   btn.textContent = '生成中...';
-  document.getElementById('resultArea').innerHTML = '<div class="loading"><div class="spinner"></div>AIが6つのプラットフォーム向けに投稿文を作成しています...</div>';
+  
+  // 薬のSVGアニメーション用HTML (fill="none"を削除してCSSの色を反映)
+  const loadingHTML = `
+    <div class="loading">
+      <div class="pills-loader">
+        <!-- カプセル -->
+        <svg class="pill-anim" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5.8 11.3 12 5.1a4.4 4.4 0 0 1 6.2 6.2l-6.2 6.2a4.4 4.4 0 0 1-6.2-6.2z"/><path d="M14 7l3 3"/>
+        </svg>
+        <!-- 錠剤（丸） -->
+        <svg class="pill-anim" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/>
+        </svg>
+        <!-- 薬瓶 -->
+        <svg class="pill-anim" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="10" width="10" height="12" rx="2"/><rect x="8" y="6" width="8" height="4" rx="1"/><path d="M10 2v4"/><path d="M14 2v4"/>
+        </svg>
+        <!-- 錠剤（六角形風） -->
+        <svg class="pill-anim" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l9 5v10l-9 5-9-5V7z"/><line x1="3" y1="12" x2="21" y2="12"/>
+        </svg>
+      </div>
+      AIが6つのプラットフォーム向けに<br>投稿文を作成しています...
+    </div>
+  `;
+  document.getElementById('resultArea').innerHTML = loadingHTML;
 
   try {
     const res = await fetch(WORKER_URL, {
